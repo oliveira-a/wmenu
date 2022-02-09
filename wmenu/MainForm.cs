@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
 namespace wmenu
 {
@@ -16,7 +17,7 @@ namespace wmenu
     {
         private readonly Color _backColour = Color.Azure;
 
-        struct Program { 
+        class Program { 
             public string name; 
             public string path; 
         }
@@ -62,10 +63,14 @@ namespace wmenu
             {
                 foreach (var p in _programs)
                     sb.Append(p.name + " ");
+            } else
+            {
+                _programs.Where(x => x.name.StartsWith(input) || x.name == input)
+                    .ToList()
+                    .ForEach(i => sb.Append(i.name + " "));
             }
 
             // Find the best matches according to the input
-
             lblPrograms.Text = sb.ToString();
         }
 
@@ -99,10 +104,23 @@ namespace wmenu
             _programs.Sort((x, y) => { return string.Compare(x.name, y.name); });
         }
 
+        private void RunProgram()
+        {
+            if (string.IsNullOrEmpty(inputTxtBox.Text)) return;
+
+            string[] items = lblPrograms.Text.Split(' ');
+            Program programToOpen = _programs.FirstOrDefault(x => x.name == items[0]);
+
+            if (programToOpen == null) return;
+
+            Process.Start(programToOpen.path);
+            this.Close();
+        }
+
         private void inputTxtBox_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
-                this.Close();
+            if (e.KeyCode == Keys.Escape) this.Close();
+            if (e.KeyCode == Keys.Enter) RunProgram();
         }
     }
 }
