@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Win32;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
 using System.Diagnostics;
 
 namespace wmenu
@@ -121,6 +118,11 @@ namespace wmenu
         {
             if (e.KeyCode == Keys.Escape) this.Close();
             if (e.KeyCode == Keys.Enter) RunProgram();
+        }
+
+        private void MainForm_Deactivate(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
