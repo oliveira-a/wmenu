@@ -36,7 +36,7 @@
             // 
             this.inputTxtBox.Location = new System.Drawing.Point(1, 3);
             this.inputTxtBox.Name = "inputTxtBox";
-            this.inputTxtBox.Size = new System.Drawing.Size(211, 20);
+            this.inputTxtBox.Size = new System.Drawing.Size(179, 20);
             this.inputTxtBox.TabIndex = 0;
             this.inputTxtBox.TextChanged += new System.EventHandler(this.inputTxtBox_TextChanged);
             this.inputTxtBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.inputTxtBox_KeyUp);
@@ -44,7 +44,7 @@
             // lblPrograms
             // 
             this.lblPrograms.AutoSize = true;
-            this.lblPrograms.Location = new System.Drawing.Point(218, 6);
+            this.lblPrograms.Location = new System.Drawing.Point(186, 6);
             this.lblPrograms.Name = "lblPrograms";
             this.lblPrograms.Size = new System.Drawing.Size(35, 13);
             this.lblPrograms.TabIndex = 1;

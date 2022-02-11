@@ -7,19 +7,27 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.IO;
 
 namespace wmenu
 {
     public partial class MainForm : Form
     {
-        private readonly Color _backColour = Color.Azure;
+        private readonly Color _backColour = Color.FromArgb(68,68,68);
+        private readonly Color _foregroundColour = Color.White;
+        private readonly Font _font = new Font("Arial", 10f);
 
-        class Program { 
+        class Program  : IComparable {  
             public string name; 
-            public string path; 
+            public string path;
+
+            public int CompareTo(object obj)
+            {
+                return string.Compare(this.name, ((Program)obj).name);
+            }
         }
 
-        private List<Program> _programs = new List<Program>();
+        private SortedSet<Program> _programs = new SortedSet<Program>();
 
         public MainForm()
         {
@@ -43,9 +51,13 @@ namespace wmenu
             inputTxtBox.Padding = Padding.Empty;
             inputTxtBox.Margin = Padding.Empty;
             inputTxtBox.BackColor = _backColour;
+            inputTxtBox.ForeColor = _foregroundColour;
+            inputTxtBox.Font = _font;
             inputTxtBox.BorderStyle = BorderStyle.None;
 
             lblPrograms.Text = string.Empty;
+            lblPrograms.ForeColor = _foregroundColour;
+            lblPrograms.Font = _font;
             lblPrograms.Width = width;
             lblPrograms.Height = height;
 
@@ -91,14 +103,13 @@ namespace wmenu
                         {
                             _programs.Add(new Program()
                             {
-                                name = skName,
+                                name = Path.ChangeExtension(skName, string.Empty).TrimEnd('.'),
                                 path = path
                             });
                         }
                     }
                 }
             }
-            _programs.Sort((x, y) => { return string.Compare(x.name, y.name); });
         }
 
         private void RunProgram()
@@ -110,7 +121,15 @@ namespace wmenu
 
             if (programToOpen == null) return;
 
-            Process.Start(programToOpen.path);
+            // Some programs might not run
+            try
+            {
+                Process.Start(programToOpen.path);
+            } catch
+            {
+                this.Close();
+            }
+
             this.Close();
         }
 
