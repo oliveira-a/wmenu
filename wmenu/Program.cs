@@ -1,4 +1,10 @@
-﻿using System;
+// ****************************************************************************
+// <copyright file="Program.cs">
+//    Copyright © Andre Brasil 2022 <brasil.a@pm.me>
+// </copyright>
+// ****************************************************************************
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
