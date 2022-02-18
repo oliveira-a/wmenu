@@ -16,21 +16,14 @@ namespace wmenu
         private readonly Color _backColour = Color.FromArgb(68,68,68);
         private readonly Color _foregroundColour = Color.White;
         private readonly Font _font = new Font("Arial", 10f);
-
-        class Program  : IComparable {  
-            public string name; 
-            public string path;
-
-            public int CompareTo(object obj)
-            {
-                return string.Compare(this.name, ((Program)obj).name);
-            }
-        }
-
-        private SortedSet<Program> _programs = new SortedSet<Program>();
+        private SortedSet<App> _apps = new SortedSet<App>();
 
         public MainForm()
         {
+            if (CheckProgramAlreadyRunning())
+            {
+                this.Close();
+            }
             InitializeComponent();
         }
 
