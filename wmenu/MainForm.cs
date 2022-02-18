@@ -63,11 +63,11 @@ namespace wmenu
             StringBuilder sb = new StringBuilder();
             if (string.IsNullOrWhiteSpace(input) || string.IsNullOrEmpty(input))
             {
-                foreach (var p in _programs)
+                foreach (var p in _apps)
                     sb.Append(p.name + " ");
             } else
             {
-                _programs.Where(x => x.name.StartsWith(input) || x.name == input)
+                _apps.Where(x => x.name.ToLower().StartsWith(input.ToLower()) || x.name.ToLower() == input.ToLower())
                     .ToList()
                     .ForEach(i => sb.Append(i.name + " "));
             }
