@@ -83,9 +83,9 @@ namespace wmenu
 
         private void LoadPrograms()
         {
-            string uninstallKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths";
-
-            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(uninstallKey))
+            string[] paths = Environment.GetEnvironmentVariable("PATH").Split(';');
+            string appPathsReg = @"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths";
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(appPathsReg))
             {
                 foreach (string skName in key.GetSubKeyNames())
                 {
@@ -94,7 +94,7 @@ namespace wmenu
                         string path = ((string)sk.GetValue(string.Empty))?.Trim();
                         if(!string.IsNullOrEmpty(path))
                         {
-                            _programs.Add(new Program()
+                            _apps.Add(new App()
                             {
                                 name = Path.ChangeExtension(skName, string.Empty).TrimEnd('.'),
                                 path = path
@@ -103,6 +103,27 @@ namespace wmenu
                     }
                 }
             }
+
+            // Loading programs from user's path as well.
+            foreach (var path in paths)
+            {
+                try
+                {
+                    string[] programs = Directory.GetFiles(path, "*.exe");
+                    foreach (var p in programs)
+                    {
+                        _apps.Add(new App()
+                        {
+                            name = Path.ChangeExtension(Path.GetFileName(p), string.Empty).TrimEnd('.'),
+                            path = p,
+                        });
+                    }
+                } catch
+                {
+                    continue;
+                }
+            }
+
         }
 
         private void RunProgram()
@@ -110,7 +131,7 @@ namespace wmenu
             if (string.IsNullOrEmpty(inputTxtBox.Text)) return;
 
             string[] items = lblPrograms.Text.Split(' ');
-            Program programToOpen = _programs.FirstOrDefault(x => x.name == items[0]);
+            App programToOpen = _apps.FirstOrDefault(x => x.name == items[0]);
 
             if (programToOpen == null) return;
 
@@ -130,6 +151,11 @@ namespace wmenu
         {
             if (e.KeyCode == Keys.Escape) this.Close();
             if (e.KeyCode == Keys.Enter) RunProgram();
+        }
+
+        private bool CheckProgramAlreadyRunning()
+        {
+            return Process.GetProcessesByName(Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1; 
         }
 
         private void MainForm_Deactivate(object sender, EventArgs e)
