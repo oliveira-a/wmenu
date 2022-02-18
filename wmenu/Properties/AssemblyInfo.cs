@@ -1,4 +1,10 @@
-﻿using System.Reflection;
+// ****************************************************************************
+// <copyright file="AssemblyInfo.cs">
+//    Copyright © Andre Brasil 2022 <brasil.a@pm.me>
+// </copyright>
+// ****************************************************************************
+
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 

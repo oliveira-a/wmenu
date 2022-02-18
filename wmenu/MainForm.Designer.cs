@@ -1,4 +1,10 @@
-﻿namespace wmenu
+// ****************************************************************************
+// <copyright file="MainForm.Designer.cs">
+//    Copyright © Andre Brasil 2022 <brasil.a@pm.me>
+// </copyright>
+// ****************************************************************************
+
+namespace wmenu
 {
     partial class MainForm
     {

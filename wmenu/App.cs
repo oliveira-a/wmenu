@@ -1,4 +1,10 @@
-﻿using System;
+// ****************************************************************************
+// <copyright file="App.cs">
+//    Copyright © Andre Brasil 2022 <brasil.a@pm.me>
+// </copyright>
+// ****************************************************************************
+
+using System;
 
 namespace wmenu
 {

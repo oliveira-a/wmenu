@@ -1,4 +1,10 @@
-﻿using System;
+// ****************************************************************************
+// <copyright file="MainForm.cs">
+//    Copyright © Andre Brasil 2022 <brasil.a@pm.me>
+// </copyright>
+// ****************************************************************************
+
+using System;
 using System.Collections.Generic;
 using Microsoft.Win32;
 using System.Data;
