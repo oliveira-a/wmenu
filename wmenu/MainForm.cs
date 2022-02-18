@@ -21,7 +21,7 @@ namespace wmenu
     {
         private readonly Color _backColour = Color.FromArgb(68,68,68);
         private readonly Color _foregroundColour = Color.White;
-        private readonly Font _font = new Font("Arial", 10f);
+        private readonly Font _font = new Font("Lucida Console", 10f);
         private SortedSet<App> _apps = new SortedSet<App>();
 
         public MainForm()
@@ -46,22 +46,39 @@ namespace wmenu
 
             inputTxtBox.Width = width / 7;
             inputTxtBox.Height = height;
-            inputTxtBox.Location = new Point(0, height/4);
+            inputTxtBox.Location = GetNewLocation(inputTxtBox);
             inputTxtBox.Padding = Padding.Empty;
             inputTxtBox.Margin = Padding.Empty;
             inputTxtBox.BackColor = _backColour;
             inputTxtBox.ForeColor = _foregroundColour;
             inputTxtBox.Font = _font;
             inputTxtBox.BorderStyle = BorderStyle.None;
+            AdjustTextBoxHeight(ref inputTxtBox);
 
             lblPrograms.Text = string.Empty;
             lblPrograms.ForeColor = _foregroundColour;
+            lblPrograms.Padding = Padding.Empty;
+            lblPrograms.Margin = Padding.Empty;
+            lblPrograms.Location = GetNewLocation(lblPrograms);
             lblPrograms.Font = _font;
             lblPrograms.Width = width;
             lblPrograms.Height = height;
 
             LoadPrograms();
             DisplayBestMatch();
+        }
+
+        private Point GetNewLocation(Control c)
+        {
+            return Screen.FromControl(this).Bounds.Height <= 992 ?  new Point(c.Location.X, this.Location.Y - 1) : c.Location;
+        }
+
+        private void AdjustTextBoxHeight(ref TextBox c)
+        {
+            if (Screen.FromControl(this).Bounds.Height > 992)
+            {
+                c.Location = new Point(c.Location.X, (Screen.FromControl(this).Bounds.Height / 50)/4);
+            }
         }
 
         private void DisplayBestMatch(string input = "")
