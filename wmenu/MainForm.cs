@@ -94,8 +94,6 @@ namespace wmenu
                     .ToList()
                     .ForEach(i => sb.Append(i.name + " "));
             }
-
-            // Find the best matches according to the input
             lblPrograms.Text = sb.ToString();
         }
 
