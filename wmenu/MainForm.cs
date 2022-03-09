@@ -65,16 +65,28 @@ namespace wmenu
             lblPrograms.Width = width;
             lblPrograms.Height = height;
 
-            LoadPrograms();
-            DisplayBestMatch();
-
             // Create a new KeyHandler to open wmenu with a hotkey
             _ghk = new KeyHandler(Keys.Oem3, this);
             if (!_ghk.Register())
             {
                 throw new Exception("There was a problem registering the hotkey.");
             }
+
+            SetupIconTray();
+            LoadPrograms();
+            DisplayBestMatch();
             MinimizeToTray();
+        }
+
+        private void SetupIconTray()
+        {
+            var menuItems = new MenuItem[]
+            {
+                new MenuItem("Open app", delegate(object s, EventArgs e) { this.Show(); }),
+                new MenuItem("Quit wmenu", delegate(object s, EventArgs e) { this.Close(); }),
+            };
+            trayIcon.Text = "wmenu";
+            trayIcon.ContextMenu = new ContextMenu(menuItems);
         }
 
         private Point GetNewLocation(Control c)
@@ -210,6 +222,10 @@ namespace wmenu
                 this.Show();
             }
             base.WndProc(ref m);
+        }
+
+        private void trayIcon_MouseClick(object sender, MouseEventArgs e)
+        {
         }
     }
 }

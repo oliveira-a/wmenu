@@ -34,8 +34,11 @@ namespace wmenu
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.inputTxtBox = new System.Windows.Forms.TextBox();
             this.lblPrograms = new System.Windows.Forms.Label();
+            this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.SuspendLayout();
             // 
             // inputTxtBox
@@ -55,6 +58,13 @@ namespace wmenu
             this.lblPrograms.Size = new System.Drawing.Size(35, 13);
             this.lblPrograms.TabIndex = 1;
             this.lblPrograms.Text = "label1";
+            // 
+            // trayIcon
+            // 
+            this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayIcon.Icon")));
+            this.trayIcon.Text = "notifyIcon1";
+            this.trayIcon.Visible = true;
+            this.trayIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.trayIcon_MouseClick);
             // 
             // MainForm
             // 
@@ -84,6 +94,7 @@ namespace wmenu
 
         private System.Windows.Forms.TextBox inputTxtBox;
         private System.Windows.Forms.Label lblPrograms;
+        private System.Windows.Forms.NotifyIcon trayIcon;
     }
 }
 
