@@ -19,10 +19,11 @@ namespace wmenu
 {
     public partial class MainForm : Form
     {
-        private readonly Color _backColour = Color.FromArgb(68,68,68);
+        private readonly Color _backColour = Color.FromArgb(68, 68, 68);
         private readonly Color _foregroundColour = Color.White;
         private readonly Font _font = new Font("Lucida Console", 10f);
         private SortedSet<App> _apps = new SortedSet<App>();
+        private KeyHandler _ghk;
 
         public MainForm()
         {
@@ -40,7 +41,7 @@ namespace wmenu
 
             this.Width = width;
             this.Height = height;
-            this.Location = new Point(0,0);
+            this.Location = new Point(0, 0);
             this.Padding = Padding.Empty;
             this.BackColor = _backColour;
 
@@ -66,18 +67,26 @@ namespace wmenu
 
             LoadPrograms();
             DisplayBestMatch();
+
+            // Create a new KeyHandler to open wmenu with a hotkey
+            _ghk = new KeyHandler(Keys.Oem3, this);
+            if (!_ghk.Register())
+            {
+                throw new Exception("There was a problem registering the hotkey.");
+            }
+            MinimizeToTray();
         }
 
         private Point GetNewLocation(Control c)
         {
-            return Screen.FromControl(this).Bounds.Height <= 992 ?  new Point(c.Location.X, this.Location.Y - 1) : c.Location;
+            return Screen.FromControl(this).Bounds.Height <= 992 ? new Point(c.Location.X, this.Location.Y - 1) : c.Location;
         }
 
         private void AdjustTextBoxHeight(ref TextBox c)
         {
             if (Screen.FromControl(this).Bounds.Height > 992)
             {
-                c.Location = new Point(c.Location.X, (Screen.FromControl(this).Bounds.Height / 50)/4);
+                c.Location = new Point(c.Location.X, (Screen.FromControl(this).Bounds.Height / 50) / 4);
             }
         }
 
@@ -113,7 +122,7 @@ namespace wmenu
                     using (RegistryKey sk = key.OpenSubKey(skName))
                     {
                         string path = ((string)sk.GetValue(string.Empty))?.Trim();
-                        if(!string.IsNullOrEmpty(path))
+                        if (!string.IsNullOrEmpty(path))
                         {
                             _apps.Add(new App()
                             {
@@ -162,26 +171,45 @@ namespace wmenu
                 Process.Start(programToOpen.path);
             } catch
             {
-                this.Close();
+                MinimizeToTray();
+                return;
             }
 
-            this.Close();
+            MinimizeToTray();
         }
 
         private void inputTxtBox_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape) this.Close();
+            if (e.KeyCode == Keys.Escape) MinimizeToTray();
             if (e.KeyCode == Keys.Enter) RunProgram();
         }
 
         private bool CheckProgramAlreadyRunning()
         {
-            return Process.GetProcessesByName(Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1; 
+            return Process.GetProcessesByName(Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1;
         }
 
         private void MainForm_Deactivate(object sender, EventArgs e)
         {
-            this.Close();
+            MinimizeToTray();
+        }
+
+        private void MinimizeToTray()
+        {
+            this.Hide();
+        }
+        
+        /*
+         * Listenning on windows messaging system.
+         * See https://docs.microsoft.com/en-us/windows/win32/winmsg/about-messages-and-message-queues
+        */
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == KeyHandler.WM_HOTKEY_MS_ID)
+            {
+                this.Show();
+            }
+            base.WndProc(ref m);
         }
     }
 }
