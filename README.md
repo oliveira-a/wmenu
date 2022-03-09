@@ -5,4 +5,6 @@ An application launcher based on suckless' dmenu.
 * .NET Framework 4.8
 
 # Usage
-For now you must assign your own shortcut to open `wmenu`. [AutoHotKey](https://autohotkey.com) is a very good option.
+wmenu is configured to be launched using the 'WIN + `' key
+combination. However there are plans to allow the user to
+set their own hotkeys in the future.
