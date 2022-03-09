@@ -117,4 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="trayIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="trayIcon.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAMMOAADDDgAAAAAAAAAA
+        AAD/////////////////////////////////////////////////////////////////////////////
+        ///////////////////t7e3/9PT0//////////////////////////////////39/f/i4uL/zMzM//r6
+        +v/////////////////u7u7/SUlJ/3d3d//4+Pj//////////////////////9ra2v9ycnL/QkJC/zEx
+        Mf/a2tr/////////////////tbW1/zMzM/8+Pj7/kZGR//////////////////Pz8/9TU1P/dnZ2/9jY
+        2P9YWFj/nJyc/////////////////2RkZP+NjY3/xsbG/zc3N//CwsL///////////+xsbH/SUlJ/+zs
+        7P//////lpaW/2RkZP/+/v7///////7+/v9iYmL/t7e3//////+cnJz/SUlJ/+np6f//////i4uL/3d3
+        d////////////8nJyf9BQUH/6Ojo///////+/v7/YmJi/7e3t///////+Pj4/2hoaP+IiIj/+/v7/1xc
+        XP+jo6P////////////z8/P/TExM/7q6uv///////v7+/2JiYv+3t7f////////////V1dX/OTk5/56e
+        nv9CQkL/z8/P/////////////////3BwcP+SkpL///////7+/v9iYmL/t7e3/////////////////5aW
+        lv8QEBD/VVVV//f39/////////////////+JiYn/ioqK///////+/v7/YmJi/7e3t///////////////
+        ///6+vr/qKio/8vLy///////////////////////iYmJ/4qKiv///////v7+/2JiYv+3t7f/////////
+        /////////////////////////////////////////////5GRkf9xcXH///////////98fHz/wMDA////
+        //////////////////////////////////////////////////+0tLT/YmJi//7+/v//////8fHx//f3
+        9///////////////////////////////////////////////////////wMDA/1hYWP/19fX/////////
+        //////////////////////////////////////////////////////////////X19f/U1NT/+/v7////
+        ////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////
+        ////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAA==
+</value>
+  </data>
 </root>
