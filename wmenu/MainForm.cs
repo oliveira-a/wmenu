@@ -75,7 +75,6 @@ namespace wmenu
             SetupIconTray();
             LoadPrograms();
             DisplayBestMatch();
-            MinimizeToTray();
         }
 
         private void SetupIconTray()
@@ -224,8 +223,9 @@ namespace wmenu
             base.WndProc(ref m);
         }
 
-        private void trayIcon_MouseClick(object sender, MouseEventArgs e)
+        private void MainForm_Shown(object sender, EventArgs e)
         {
+            MinimizeToTray();
         }
     }
 }
