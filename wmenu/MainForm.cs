@@ -81,7 +81,7 @@ namespace wmenu
         {
             var menuItems = new MenuItem[]
             {
-                new MenuItem("Open app", delegate(object s, EventArgs e) { this.Show(); }),
+                new MenuItem("Launch app", delegate(object s, EventArgs e) { this.Show(); }),
                 new MenuItem("Quit wmenu", delegate(object s, EventArgs e) { this.Close(); }),
             };
             trayIcon.Text = "wmenu";
@@ -207,6 +207,8 @@ namespace wmenu
 
         private void MinimizeToTray()
         {
+            /* Make sure input box is clear when hidding. */
+            inputTxtBox.Clear();
             this.Hide();
         }
         
@@ -218,7 +220,7 @@ namespace wmenu
         {
             if (m.Msg == KeyHandler.WM_HOTKEY_MS_ID)
             {
-                this.Show();
+                if (!this.Visible) { this.Show(); }
             }
             base.WndProc(ref m);
         }
